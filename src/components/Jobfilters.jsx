@@ -1,7 +1,13 @@
 // Three controlled <select> dropdowns. The option lists are built
 // from the real API data inside the useJobs hook, so they can never
 // be out of sync with what's actually on the board.
-export default function Jobfilters({ filters, options, onChange, onReset, resultCount }) {
+export default function Jobfilters({
+  filters = { industry: "all", level: "all", jobType: "all" },
+  options = { industries: [], levels: [], jobTypes: [] },
+  onChange = () => {},
+  onReset = () => {},
+  resultCount = 0,
+}) {
   return (
     <section className="filters card">
       <div className="filters-row">
