@@ -1,7 +1,7 @@
 # CareerRadar
 
 > A React job-discovery prototype for exploring remote job listings from the [Jobicy API](https://jobicy.com/jobs-rss-feed).
-<img width="944" height="424" alt="image" src="https://github.com/user-attachments/assets/f638484d-ffbb-4e51-a771-9b5fbb472b49" />
+<img width="924" height="406" alt="image" src="https://github.com/user-attachments/assets/6feb22de-8c24-4ed5-b9ee-d7250550bf61" />
 
 ## Table of Contents
 
@@ -11,6 +11,7 @@
 - [Tech Stack](#tech-stack)
 - [Data Source](#data-source)
 - [Run Locally](#run-locally)
+- [How the Project Was Set Up](#how-the-project-was-set-up)
 - [Project Structure](#project-structure)
 - [Project Team](#project-team)
 
@@ -73,6 +74,18 @@ Open the local URL printed by Vite. To create a production build:
 npm run build
 ```
 
+## How the Project Was Set Up
+
+For reference, the project was created with these commands. **You don't need to run them** if you cloned the repo, since `npm install` above already installs everything.
+
+```bash
+# Create the Vite + React project
+npm create vite@latest
+
+# Add client-side routing
+npm install react-router-dom
+```
+
 ## Project Structure
 
 ```text
@@ -90,4 +103,3 @@ src/
 - Okech Martin
 - Teddy Learamo
 - Ziza Kariuki
-- Edwin Lude
