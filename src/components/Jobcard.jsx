@@ -3,6 +3,8 @@ import { formatJobDate, formatSalaryRange } from "../services/JobApi.js";
 
 // One reusable card = one job listing. Used on both Home and Jobs.
 export default function Jobcard({ job, isSaved, onToggleSave }) {
+  if (!job) return null;
+
   return (
     <article className="job-card card">
       <div className="job-card-top">
@@ -22,7 +24,7 @@ export default function Jobcard({ job, isSaved, onToggleSave }) {
       <div className="job-meta">
         <span className="tag"> {job.location}</span>
         {job.level && <span className="tag">{job.level}</span>}
-        {job.jobTypes.map((type) => (
+        {(job.jobTypes || []).map((type) => (
           <span className="tag" key={type}>{type}</span>
         ))}
       </div>
@@ -36,7 +38,7 @@ export default function Jobcard({ job, isSaved, onToggleSave }) {
           <button
             type="button"
             className={`btn btn-save ${isSaved ? "is-saved" : ""}`}
-            onClick={() => onToggleSave(job.id)}
+            onClick={() => onToggleSave?.(job.id)}
           >
             {isSaved ? " Saved" : " Save"}
           </button>

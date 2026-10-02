@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
 import Searchbar from "../components/Searchbar";
 import Jobfilters from "../components/Jobfilters";
@@ -5,8 +6,25 @@ import Jobcard from "../components/Jobcard";
 import Footer from "../components/Footer";
 import EmptyState from "../components/EmptyState";
 import ErrorMessage from "../components/ErrorMessage";
+import { useJobs, useSavedJobs } from "../hooks/UseJobs";
 
 function Jobs() {
+    const { jobs, loading, error, setSearchTerm, refetch } = useJobs();
+    const { savedJobIds, toggleSavedJob } = useSavedJobs();
+    const [filters, setFilters] = useState({ industry: "all", level: "all", jobType: "all" });
+    const options = useMemo(() => ({
+        industries: [...new Set(jobs.flatMap((job) => job.industry || []))],
+        levels: [...new Set(jobs.map((job) => job.level).filter(Boolean))],
+        jobTypes: [...new Set(jobs.flatMap((job) => job.jobTypes || []))],
+    }), [jobs]);
+    const visibleJobs = jobs.filter((job) =>
+        (filters.industry === "all" || (job.industry || []).includes(filters.industry)) &&
+        (filters.level === "all" || job.level === filters.level) &&
+        (filters.jobType === "all" || (job.jobTypes || []).includes(filters.jobType))
+    );
+    const handleFilterChange = (name, value) => setFilters((current) => ({ ...current, [name]: value }));
+    const resetFilters = () => setFilters({ industry: "all", level: "all", jobType: "all" });
+
     return (
         <>
             <Navbar />
@@ -16,7 +34,7 @@ function Jobs() {
                 <section className="job-search">
                     <h1>Find Jobs</h1>
 
-                    <Searchbar />
+                    <Searchbar onSearch={setSearchTerm} />
                 </section>
 
                 {/* Search Results */}
@@ -24,7 +42,13 @@ function Jobs() {
 
                     {/* Filters */}
                     <aside className="filters">
-                        <Jobfilters />
+                            <Jobfilters
+                                filters={filters}
+                                options={options}
+                                onChange={handleFilterChange}
+                                onReset={resetFilters}
+                                resultCount={visibleJobs.length}
+                            />
                     </aside>
 
                     {/* Results */}
@@ -33,15 +57,28 @@ function Jobs() {
                             <h2>Job Opportunities</h2>
                         </div>
 
-                        <div className="job-list">
-                            <Jobcard />
-                            <Jobcard />
-                            <Jobcard />
-                        </div>
+                        {error ? (
+                            <ErrorMessage message={error} onRetry={refetch} />
+                        ) : loading ? (
+                            <div className="job-list" aria-label="Loading jobs">
+                                {[1, 2, 3].map((item) => <div className="job-card card skeleton-card" key={item}><span /><span /><span /></div>)}
+                            </div>
+                        ) : visibleJobs.length ? (
+                            <div className="job-list">
+                                {visibleJobs.map((job) => (
+                                    <Jobcard
+                                        job={job}
+                                        key={job.id}
+                                        isSaved={savedJobIds.includes(String(job.id))}
+                                        onToggleSave={toggleSavedJob}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <EmptyState title="No matching jobs" message="Adjust your search or filters to see more opportunities." />
+                        )}
 
                     </section>
-                 {/* EmptyState */}
-                 {/* ErrorMessage */}
                 </section>
             </main>
 

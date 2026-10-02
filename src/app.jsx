@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Link, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import About from './pages/About';
+import Home from './pages/Home';
+import JobDetails from './pages/JobDetails';
+import Jobs from './pages/Jobs';
 import "./styles/global.css";
 
 function App() {
