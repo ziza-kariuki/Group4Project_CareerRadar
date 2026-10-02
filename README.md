@@ -1,6 +1,7 @@
 # CareerRadar
 
 > A React job-discovery prototype for exploring remote job listings from the [Jobicy API](https://jobicy.com/jobs-rss-feed).
+<img width="944" height="424" alt="image" src="https://github.com/user-attachments/assets/f638484d-ffbb-4e51-a771-9b5fbb472b49" />
 
 ## Table of Contents
 
