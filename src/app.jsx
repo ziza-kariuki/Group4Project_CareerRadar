@@ -11,9 +11,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/jobs" element={<Jobs />} />
-                <Route path="/jobs/:jobId" element={<JobDetails />} />
+                <Route path="/jobs/:id" element={<JobDetails />} />
                 <Route path="/about" element={<About />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </BrowserRouter>
     );
