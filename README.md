@@ -99,7 +99,8 @@ src/
 
 ## Project Team
 
-- Gabriel Cosmas
-- Okech Martin
-- Teddy Learamo
-- Ziza Kariuki
+- Gabriel Cosmas: Services folder, skills.py, users.py
+- Okech Martin: alerts.py, applications.py, auth.py, career.py, dashboard.py, jobs.py, matches.py, profile.py
+- Edwin Lude: application.py, career_goal.py, education.py, experience.py, job.py
+- Teddy Learamo: All database schema/relationships
+- Ziza Kariuki: job_alert.py, notification.py, profile.py, saved_job.py, skill.py, user.py
